@@ -9,7 +9,6 @@ import dev.peertosir.littlemanager.repository.abstraction.AccountRepository;
 import dev.peertosir.littlemanager.repository.abstraction.UserRepository;
 import dev.peertosir.littlemanager.repository.impl.JavaIOAccountRepository;
 import dev.peertosir.littlemanager.repository.impl.JavaIOUserRepository;
-import dev.peertosir.littlemanager.view.MainMenuView;
 import dev.peertosir.littlemanager.view.UserAuthView;
 
 import java.util.*;
@@ -20,7 +19,7 @@ public class AuthController {
     private static final AccountRepository<Account, Long> accountRepository = new JavaIOAccountRepository();
 
     public static void register() {
-        User user = null;
+        User user;
 
         String username = UserController.getUsername();
 
@@ -64,7 +63,7 @@ public class AuthController {
             System.out.println("Password or username is wrong. Do you want to try again?");
             boolean continueTrying = UserAuthView.requestYesNo();
             if (continueTrying) {
-                username = UserAuthView.requestFieldFromUser("password", 5);
+                password = UserAuthView.requestFieldFromUser("password", 5);
             } else {
                 MainMenuController.StartMenu();
                 return;

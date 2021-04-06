@@ -48,8 +48,7 @@ public class JavaIOUserRepository implements UserRepository<User, Long> {
         List<User> users = getAll();
         user.setId(Helpers.calcEntityId(users, user));
         users.add(user);
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filesDir + "users.txt") {
-        }))
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filesDir + "users.txt")))
         {
             oos.writeObject(users);
         }
@@ -80,8 +79,7 @@ public class JavaIOUserRepository implements UserRepository<User, Long> {
             return u;
         }).collect(Collectors.toList());
 
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filesDir + "users.txt") {
-        }))
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filesDir + "users.txt")))
         {
             oos.writeObject(users);
         }

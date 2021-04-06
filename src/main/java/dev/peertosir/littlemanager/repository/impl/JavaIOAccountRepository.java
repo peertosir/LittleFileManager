@@ -47,8 +47,7 @@ public class JavaIOAccountRepository implements AccountRepository<Account, Long>
         List<Account> accs = getAll();
         account.setId(Helpers.calcEntityId(accs, account));
         accs.add(account);
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filesDir + "accounts.txt") {
-        }))
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filesDir + "accounts.txt")))
         {
             oos.writeObject(accs);
         }
