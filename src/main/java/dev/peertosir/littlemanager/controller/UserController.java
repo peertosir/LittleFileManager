@@ -8,7 +8,7 @@ import dev.peertosir.littlemanager.repository.abstraction.AccountRepository;
 import dev.peertosir.littlemanager.repository.abstraction.UserRepository;
 import dev.peertosir.littlemanager.repository.impl.JavaIOAccountRepository;
 import dev.peertosir.littlemanager.repository.impl.JavaIOUserRepository;
-import dev.peertosir.littlemanager.view.MainMenuView;
+import dev.peertosir.littlemanager.view.UserAuthView;
 import dev.peertosir.littlemanager.view.UserView;
 
 public class UserController {
@@ -26,11 +26,14 @@ public class UserController {
             return;
         }
 
-        String userInput = UserView.showUserInfo(user.getId(), user.getUsername(), user.getLastName(),
+        String userInput = UserView.getUserInfo(user.getId(), user.getUsername(), user.getLastName(),
                 account.getCreatedAt(), account.getStatus().name());
         switch (userInput) {
             case "back":
                 MainMenuController.MainMenu(user);
+                break;
+            case "edit":
+                UserController.editUser(user.getId());
                 break;
             case "q":
                 System.out.println("Bye-bye");
@@ -39,13 +42,39 @@ public class UserController {
     }
 
     public static void editUser(long id) {
+        User user;
         try {
-            User user = userRepository.getById(id);
+             user = userRepository.getById(id);
         } catch (NotFoundException ex) {
             System.out.println("Something went really wrong");
             return;
         }
-        
+
+        String username = getUsername();
+        String lastName = UserView.requestFieldFromUser("last name", 0);
+        String password = UserView.requestFieldFromUser("password", 5);
+
+        user.setUsername(username);
+        user.setLastName(lastName);
+        user.setPassword(password);
+
+        userRepository.update(user, id);
+        UserView.showUserUpdatedMessage();
+        MainMenuController.MainMenu(user);
     }
 
+    protected static String getUsername() {
+        String username = UserView.requestFieldFromUser("username", 4);
+        User sameUsernameUser;
+        while (true) {
+            try {
+                sameUsernameUser = userRepository.getByUsername(username);
+                System.out.println("User with this" + username + "already exists");
+                username = UserAuthView.requestFieldFromUser("username", 4);
+            } catch (UserNotFoundException ex) {
+                break;
+            }
+        }
+        return username;
+    }
 }

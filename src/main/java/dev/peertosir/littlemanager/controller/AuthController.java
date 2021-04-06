@@ -22,16 +22,7 @@ public class AuthController {
     public static void register() {
         User user = null;
 
-        String username = UserAuthView.requestFieldFromUser("username", 4);
-        while (true) {
-            try {
-                user = userRepository.getByUsername(username);
-                username = UserAuthView.requestFieldFromUser("username", 4);
-            } catch (UserNotFoundException ex) {
-                break;
-            }
-        }
-
+        String username = UserController.getUsername();
 
         String lastName = UserAuthView.requestFieldFromUser("last name", 0);
 

@@ -2,21 +2,17 @@ package dev.peertosir.littlemanager.repository.impl;
 
 import dev.peertosir.littlemanager.exceptions.UserNotFoundException;
 import dev.peertosir.littlemanager.model.Account;
-import dev.peertosir.littlemanager.model.User;
 import dev.peertosir.littlemanager.repository.abstraction.AccountRepository;
 import dev.peertosir.littlemanager.utils.Helpers;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class JavaIOAccountRepository implements AccountRepository<Account, Long> {
 
     private String filesDir;
-
 
     public JavaIOAccountRepository() {
         this.filesDir = System.getProperty("user.dir") + System.getProperty("file.separator") +
@@ -64,11 +60,11 @@ public class JavaIOAccountRepository implements AccountRepository<Account, Long>
 
     @Override
     public void update(Account account, Long aLong) {
-
+        //Not needed now
     }
 
     @Override
     public void delete(Long aLong) {
-
+        //Maybe will be used to ban account
     }
 }

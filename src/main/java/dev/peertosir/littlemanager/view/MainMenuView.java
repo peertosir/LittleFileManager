@@ -4,9 +4,7 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class MainMenuView {
-
-    private static Scanner scanner = new Scanner(System.in);
+public class MainMenuView extends BaseView {
 
     public static String showStartMenu() {
         System.out.println("Welcome to LittleFileManager!\nDo you have an account?" +
