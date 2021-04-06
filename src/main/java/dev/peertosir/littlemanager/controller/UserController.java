@@ -50,13 +50,19 @@ public class UserController {
             return;
         }
 
-        String username = getUsername();
-        String lastName = UserView.requestFieldFromUser("last name", 0);
-        String password = UserView.requestFieldFromUser("password", 5);
+        if (UserView.getChangeRequest("username")) {
+            String username = getUsername();
+            user.setUsername(username);
+        }
 
-        user.setUsername(username);
-        user.setLastName(lastName);
-        user.setPassword(password);
+        if (UserView.getChangeRequest("last name")) {
+            String lastName = UserView.requestFieldFromUser("last name", 0);
+            user.setLastName(lastName);
+        }
+        if (UserView.getChangeRequest("password")) {
+            String password = UserView.requestFieldFromUser("password", 5);
+            user.setPassword(password);
+        }
 
         userRepository.update(user, id);
         UserView.showUserUpdatedMessage();

@@ -39,6 +39,11 @@ public abstract class BaseView {
         return data;
     }
 
+    public static boolean getChangeRequest(String field) {
+        System.out.println("Do you want to change " + field + " ?");
+        return requestYesNo();
+    }
+
     public static void showValidationLengthFailedMessage(long length, String field) {
         System.out.println(field + " should be at least " + length + " characters long");
     }

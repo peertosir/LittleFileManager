@@ -48,6 +48,7 @@ public class AuthController {
                 user = userRepository.getByUsername(username);
                 break;
             } catch (UserNotFoundException ex) {
+                System.out.println("User with this username not found. Do you want to try again?");
                 boolean continueTrying = UserAuthView.requestYesNo();
                 if (continueTrying) {
                     username = UserAuthView.requestFieldFromUser("username", 4);
@@ -60,6 +61,7 @@ public class AuthController {
 
         String password = UserAuthView.requestFieldFromUser("password", 5);
         while (!password.equals(user.getPassword())) {
+            System.out.println("Password or username is wrong. Do you want to try again?");
             boolean continueTrying = UserAuthView.requestYesNo();
             if (continueTrying) {
                 username = UserAuthView.requestFieldFromUser("password", 5);
