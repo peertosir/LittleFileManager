@@ -39,6 +39,13 @@ public class UserController {
     }
 
     public static void editUser(long id) {
-
+        try {
+            User user = userRepository.getById(id);
+        } catch (NotFoundException ex) {
+            System.out.println("Something went really wrong");
+            return;
+        }
+        
     }
+
 }

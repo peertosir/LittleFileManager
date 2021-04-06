@@ -92,7 +92,16 @@ public class JavaIOUserRepository implements UserRepository<User, Long> {
 
     @Override
     public void delete(Long id) {
-
+        List<User> users = getAll();
+        users = users.stream().filter(u -> u.getId() != id).collect(Collectors.toList());
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filesDir + "users.txt") {
+        }))
+        {
+            oos.writeObject(users);
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
     }
 
     @Override
