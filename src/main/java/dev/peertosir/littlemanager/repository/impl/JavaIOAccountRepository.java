@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class JavaIOAccountRepository implements AccountRepository<Account, Long> {
 
@@ -37,8 +38,12 @@ public class JavaIOAccountRepository implements AccountRepository<Account, Long>
     }
 
     @Override
-    public Account getById(Long aLong) throws UserNotFoundException {
-        return null;
+    public Account getById(Long id) throws UserNotFoundException {
+        List<Account> accs = getAll().stream().filter(account -> account.getId() == id).collect(Collectors.toList());
+        if (accs.size() == 0) {
+            throw new UserNotFoundException();
+        }
+        return accs.get(0);
     }
 
     @Override

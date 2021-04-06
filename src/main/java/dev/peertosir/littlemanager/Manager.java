@@ -14,7 +14,5 @@ public class Manager {
         } catch (IOException ioException) {
             System.out.println("Cannot create directory for files. Aborting program...");
         }
-
-
     }
 }

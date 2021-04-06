@@ -1,5 +1,6 @@
 package dev.peertosir.littlemanager.repository.impl;
 
+import dev.peertosir.littlemanager.exceptions.NotFoundException;
 import dev.peertosir.littlemanager.exceptions.UserNotFoundException;
 import dev.peertosir.littlemanager.model.User;
 import dev.peertosir.littlemanager.repository.abstraction.UserRepository;
@@ -60,7 +61,33 @@ public class JavaIOUserRepository implements UserRepository<User, Long> {
 
     @Override
     public void update(User user, Long id) {
+        List<User> users = getAll();
+        User userToEdit;
+        try {
+            userToEdit = getById(id);
+        } catch (NotFoundException ex) {
+            System.out.println("Something strange happened. We cannot find you :(");
+            return;
+        }
+        userToEdit.setUsername(user.getUsername());
+        userToEdit.setPassword(user.getPassword());
+        userToEdit.setLastName(user.getLastName());
 
+        users = users.stream().map(u -> {
+            if (u.getId() == id) {
+                u = userToEdit;
+            }
+            return u;
+        }).collect(Collectors.toList());
+
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filesDir + "users.txt") {
+        }))
+        {
+            oos.writeObject(users);
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
     }
 
     @Override

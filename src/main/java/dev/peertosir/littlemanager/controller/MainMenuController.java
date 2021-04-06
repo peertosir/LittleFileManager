@@ -10,7 +10,7 @@ public class MainMenuController {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void StartMenu() {
-        String userInput = MainMenuView.ShowStartMenu();
+        String userInput = MainMenuView.showStartMenu();
         switch (userInput) {
             case "login":
                 AuthController.login();
@@ -25,6 +25,17 @@ public class MainMenuController {
     }
 
     public static void MainMenu(User user) {
-        System.out.println("Hello, " + user.getUsername() + "!");
+        String userInput = MainMenuView.showMainMenu(user.getUsername());
+        switch (userInput) {
+            case "profile":
+                UserController.getUser(user.getId());
+                break;
+            case "files":
+                System.out.println("Stub for files controller");
+                break;
+            case "q":
+                System.out.println("Bye-bye");
+                break;
+        }
     }
 }
