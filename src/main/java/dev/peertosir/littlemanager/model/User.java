@@ -7,15 +7,14 @@ public class User extends BaseEntity {
     private String username;
     private String lastName;
     private long account;
-    private List<Event> events;
+
     private String password;
 
-    public User(long id, String username, String lastName, long accountId, List<Event> events, String password) {
+    public User(long id, String username, String lastName, long accountId,  String password) {
         setId(id);
         this.username = username;
         this.lastName = lastName;
         this.account = accountId;
-        this.events = events;
         this.password = password;
     }
 
@@ -41,14 +40,6 @@ public class User extends BaseEntity {
 
     public void setAccount(long account) {
         this.account = account;
-    }
-
-    public List<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(List<Event> events) {
-        this.events = events;
     }
 
     public String getPassword() {

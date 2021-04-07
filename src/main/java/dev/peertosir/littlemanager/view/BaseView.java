@@ -47,4 +47,14 @@ public abstract class BaseView {
     public static void showValidationLengthFailedMessage(long length, String field) {
         System.out.println(field + " should be at least " + length + " characters long");
     }
+
+    public static String getMenuUserChoice(String[] options, String menu) {
+        System.out.println(menu);
+        String userInput = scanner.nextLine().toLowerCase(Locale.ROOT).strip();
+        while (Arrays.stream(options).noneMatch(userInput::equals)) {
+            System.out.println("Please enter valid option: \n" + menu);
+            userInput = scanner.nextLine().toLowerCase(Locale.ROOT);
+        }
+        return userInput;
+    }
 }

@@ -10,6 +10,7 @@ public class Manager {
         System.out.println("Launching Little File Manager by peertosir");
         try {
             FilesUtility.createDirectoryForFiles();
+            FilesUtility.createDirectoryForUserFiles();
             MainMenuController.StartMenu();
         } catch (IOException ioException) {
             System.out.println("Cannot create directory for files. Aborting program...");

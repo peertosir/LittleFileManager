@@ -31,9 +31,7 @@ public class AuthController {
         Account account = new Account(0, new Date().toString(), AccountStatus.ACTIVE);
         long accountId = accountRepository.create(account);
 
-        List<Event> events = new ArrayList<>();
-
-        user = new User(0, username, lastName, accountId, events, password);
+        user = new User(0, username, lastName, accountId, password);
         userRepository.create(user);
         UserAuthView.userCreatedSuccessfully(username);
         MainMenuController.StartMenu();

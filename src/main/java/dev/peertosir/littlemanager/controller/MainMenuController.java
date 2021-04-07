@@ -31,7 +31,10 @@ public class MainMenuController {
                 UserController.getUser(user.getId());
                 break;
             case "files":
-                System.out.println("Stub for files controller");
+                UserFileController.getMainUserFileMenu(user);
+                break;
+            case "events":
+                EventController.getAllEvents(user, false);
                 break;
             case "q":
                 System.out.println("Bye-bye");

@@ -15,15 +15,9 @@ public class UserView extends BaseView {
         System.out.println("Account created at: " + createdAt);
         System.out.println("Account status: " + accountStatus);
         String menu = "1. Enter 'back' to return to main menu\n2. Enter 'edit' to update user info" +
-                "\n3. Enter 'q' to quit";
-        System.out.println(menu);
-        String[] options = {"back", "q", "edit"};
-        String userInput = scanner.nextLine().toLowerCase(Locale.ROOT);
-        while (Arrays.stream(options).noneMatch(userInput::equals)) {
-            System.out.println("Please enter valid option.\n" + menu);
-            userInput = scanner.nextLine().toLowerCase(Locale.ROOT);
-        }
-        return userInput;
+                "\n3. Enter 'myevents' to show your events\n3. Enter 'q' to quit";
+        String[] options = {"back", "q", "edit", "myevents"};
+        return getMenuUserChoice(options, menu);
     }
 
     public static void showUserUpdatedMessage() {

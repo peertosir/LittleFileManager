@@ -1,14 +1,13 @@
 package dev.peertosir.littlemanager.repository.impl;
 
 import dev.peertosir.littlemanager.exceptions.NotFoundException;
-import dev.peertosir.littlemanager.exceptions.UserNotFoundException;
+import dev.peertosir.littlemanager.exceptions.UserFileNotFoundException;
 import dev.peertosir.littlemanager.model.UserFile;
 import dev.peertosir.littlemanager.model.enums.FileStatus;
 import dev.peertosir.littlemanager.repository.abstraction.UserFileRepository;
 import dev.peertosir.littlemanager.utils.Helpers;
 
 import java.io.*;
-import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,10 +45,24 @@ public class JavaIOUserFileRepository implements UserFileRepository<UserFile, Lo
     }
 
     @Override
+    public String getFileContent(Long id) throws NotFoundException {
+        UserFile file = getById(id);
+        String fileContent = "";
+        String line;
+        try (BufferedReader reader = new BufferedReader(new FileReader(userFilesDir + file.getFileName()))) {
+            while ((line = reader.readLine()) != null) {
+                fileContent += line;
+            }
+        } catch (IOException ex) {
+            throw new NotFoundException();
+        }
+        return fileContent;    }
+
+    @Override
     public UserFile getById(Long id) throws NotFoundException {
         List<UserFile> files = getAllActive().stream().filter(userFile -> userFile.getId() == id).collect(Collectors.toList());
-        if (files.size() == 0) {
-            throw new UserNotFoundException();
+        if (files.size() == 0 || files.get(0).getFileStatus() == FileStatus.DELETED) {
+            throw new UserFileNotFoundException();
         }
         return files.get(0);
     }
@@ -59,8 +72,9 @@ public class JavaIOUserFileRepository implements UserFileRepository<UserFile, Lo
         List<UserFile> files = getAll();
         userFile.setId(Helpers.calcEntityId(files, userFile));
         files.add(userFile);
+
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filesDir + "files.txt"));
-        BufferedWriter writer = new BufferedWriter(new FileWriter((filesDir + userFile.getFileName()))))
+        BufferedWriter writer = new BufferedWriter(new FileWriter((userFilesDir + userFile.getFileName()))))
         {
             oos.writeObject(files);
             writer.write(userFile.getContent());

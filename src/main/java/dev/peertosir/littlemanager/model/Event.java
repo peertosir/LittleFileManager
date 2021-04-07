@@ -8,12 +8,14 @@ public class Event extends BaseEntity {
     private UserFile userFile;
     private Date occuredAt;
     private FileStatus fileStatus;
+    private Long userId;
 
-    public Event(long id, UserFile userFile, Date occuredAt, FileStatus status) {
+    public Event(long id, UserFile userFile, Date occuredAt, FileStatus status, Long userId) {
         setId(id);
         this.userFile = userFile;
         this.occuredAt = occuredAt;
         this.fileStatus = status;
+        this.userId = userId;
     }
 
 
@@ -47,5 +49,13 @@ public class Event extends BaseEntity {
 
     public void setUserFile(UserFile userFile) {
         this.userFile = userFile;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

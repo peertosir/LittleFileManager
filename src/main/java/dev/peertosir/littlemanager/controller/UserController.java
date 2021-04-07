@@ -28,9 +28,13 @@ public class UserController {
 
         String userInput = UserView.getUserInfo(user.getId(), user.getUsername(), user.getLastName(),
                 account.getCreatedAt(), account.getStatus().name());
+
         switch (userInput) {
             case "back":
                 MainMenuController.MainMenu(user);
+                break;
+            case "myevents":
+                EventController.getAllEvents(user, true);
                 break;
             case "edit":
                 UserController.editUser(user.getId());
