@@ -14,16 +14,11 @@ import java.util.stream.Collectors;
 
 public class JavaIOUserFileRepository implements UserFileRepository<UserFile, Long> {
 
-    private String userFilesDir;
-    private String filesDir;
-
-    public JavaIOUserFileRepository() {
-        this.filesDir = System.getProperty("user.dir") + System.getProperty("file.separator") +
-                "files" + System.getProperty("file.separator");
-        this.userFilesDir = System.getProperty("user.dir") + System.getProperty("file.separator") +
-                "files" + System.getProperty("file.separator") + "users_files" + System.getProperty("file.separator");
-    }
-
+    private final String userFilesDir = System.getProperty("user.dir") + System.getProperty("file.separator") +
+            "files" + System.getProperty("file.separator");
+    private final String filesDir = System.getProperty("user.dir") + System.getProperty("file.separator") +
+            "files" + System.getProperty("file.separator") + "users_files" + System.getProperty("file.separator");
+    
     @Override
     public List<UserFile> getAll() {
         List<UserFile> returnValue = new ArrayList<>();

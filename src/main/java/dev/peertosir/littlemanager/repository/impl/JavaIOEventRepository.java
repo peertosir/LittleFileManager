@@ -12,13 +12,8 @@ import java.util.stream.Collectors;
 
 public class JavaIOEventRepository implements EventRepository<Event, Long> {
 
-    private String filesDir;
-
-    public JavaIOEventRepository() {
-        this.filesDir = System.getProperty("user.dir") + System.getProperty("file.separator") +
-                "files" + System.getProperty("file.separator");
-
-    }
+    private final String filesDir = System.getProperty("user.dir") + System.getProperty("file.separator") +
+            "files" + System.getProperty("file.separator");
 
     public List<Event> getAllUserEvents(Long userId) {
         List<Event> returnValue = getAll().stream().filter(event -> event.getUserId().equals(userId))

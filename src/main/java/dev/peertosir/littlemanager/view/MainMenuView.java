@@ -1,5 +1,7 @@
 package dev.peertosir.littlemanager.view;
 
+import dev.peertosir.littlemanager.model.enums.MenuMessages;
+
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
@@ -7,7 +9,7 @@ import java.util.Scanner;
 public class MainMenuView extends BaseView {
 
     public static String showStartMenu() {
-        System.out.println("Welcome to LittleFileManager!\nDo you have an account?");
+        System.out.println(MenuMessages.GREETING.getMessage());
         String menu = "1. Enter 'login' to log in\n2. Enter 'reg' to register\n3. Enter 'q' to quit";
         String[] options = {"login", "reg", "q"};
         return getMenuUserChoice(options, menu);

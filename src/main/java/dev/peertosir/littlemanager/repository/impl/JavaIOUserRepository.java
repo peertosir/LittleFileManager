@@ -2,7 +2,9 @@ package dev.peertosir.littlemanager.repository.impl;
 
 import dev.peertosir.littlemanager.exceptions.NotFoundException;
 import dev.peertosir.littlemanager.exceptions.UserNotFoundException;
+import dev.peertosir.littlemanager.model.Account;
 import dev.peertosir.littlemanager.model.User;
+import dev.peertosir.littlemanager.repository.abstraction.AccountRepository;
 import dev.peertosir.littlemanager.repository.abstraction.UserRepository;
 import dev.peertosir.littlemanager.utils.Helpers;
 
@@ -13,13 +15,9 @@ import java.util.stream.Collectors;
 
 public class JavaIOUserRepository implements UserRepository<User, Long> {
 
-    private String filesDir;
-    private final JavaIOAccountRepository accountRepository = new JavaIOAccountRepository();
-
-    public JavaIOUserRepository() {
-        this.filesDir = System.getProperty("user.dir") + System.getProperty("file.separator") +
-                "files" + System.getProperty("file.separator");
-    }
+    private String filesDir = System.getProperty("user.dir") + System.getProperty("file.separator") +
+            "files" + System.getProperty("file.separator");
+    private final AccountRepository<Account, Long> accountRepository = new JavaIOAccountRepository();
 
     @Override
     public List<User> getAll() {
